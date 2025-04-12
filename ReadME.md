@@ -1,4 +1,4 @@
-# DailyPulse 🧘‍♂️ - Habit Tracker App
+# DailyPulse - Habit Tracker App
 
 **DailyPulse** is a modern habit tracking app built with **Next.js** and styled using **TailwindCSS** and **Radix UI** components.
 
