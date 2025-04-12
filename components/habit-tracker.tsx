@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import Link from "next/link"
 
 import { HabitCard } from "./habit-card"
 import { HabitDetail } from "./habit-detail"
@@ -181,11 +182,12 @@ export default function HabitTracker() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-8">
-      <Button variant="link" className="mb-1 pl-0" onClick={() => window.location.href = "/"}>
-        {/* Icon */}
-        <ChevronLeft className="mr-0 h-4 w-4" />
-        <span className="text-slate-500 dark:text-slate-400 text-md">Go Back</span>
-      </Button>
+      <Link href="/" className="mb-1 inline-block">
+        <Button variant="link" className="pl-0">
+          <ChevronLeft className="mr-1 h-4 w-4" />
+          Back to Home
+        </Button>
+      </Link>
 
       <header className="mb-6 flex items-center justify-between">
         <div>

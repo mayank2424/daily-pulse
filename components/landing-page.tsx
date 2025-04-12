@@ -11,11 +11,13 @@ import { HabitStreakVisualizer } from "@/components/habit-streak-visualizer"
 import { MoodTracker } from "@/components/mood-tracker"
 import { AIRecommendations } from "@/components/ai-recommendations"
 import { HabitStack } from "@/components/habit-stack"
+import { useRouter } from "next/navigation"
 
 export default function LandingPage() {
   const [showApp, setShowApp] = useState(false)
   const [activeFeature, setActiveFeature] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsVisible(true)
@@ -23,7 +25,7 @@ export default function LandingPage() {
     // Auto-rotate features
     const interval = setInterval(() => {
       setActiveFeature((prev) => (prev + 1) % 5)
-    }, 5000)
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [])
@@ -122,7 +124,7 @@ export default function LandingPage() {
           </nav>
           <div className="flex items-center gap-3">
             <Button
-              onClick={() => setShowApp(true)}
+              onClick={() => router.push('/habit-tracker')}
               className="bg-gradient-to-r from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600"
             >
               View Dashboard
@@ -161,7 +163,7 @@ export default function LandingPage() {
                 className="flex flex-col items-center justify-center gap-4 sm:flex-row"
               >
                 <Button
-                  onClick={() => setShowApp(true)}
+                  onClick={() => router.push('/habit-tracker')}
                   size="lg"
                   className="bg-gradient-to-r from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600"
                 >
@@ -496,7 +498,7 @@ export default function LandingPage() {
                 Join thousands of users who have successfully built lasting habits with DailyPulse.
               </p>
               <Button
-                onClick={() => setShowApp(true)}
+                onClick={() => router.push('/habit-tracker')}
                 size="lg"
                 className="bg-white text-violet-600 hover:bg-violet-50"
               >
