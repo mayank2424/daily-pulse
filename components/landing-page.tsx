@@ -12,6 +12,7 @@ import { MoodTracker } from "@/components/mood-tracker"
 import { AIRecommendations } from "@/components/ai-recommendations"
 import { HabitStack } from "@/components/habit-stack"
 import { useRouter } from "next/navigation"
+import ThemeSwitch from "./theme-switch"
 
 export default function LandingPage() {
   const [showApp, setShowApp] = useState(false)
@@ -122,13 +123,15 @@ export default function LandingPage() {
               Testimonials
             </a>
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Button
               onClick={() => router.push('/habit-tracker')}
               className="bg-gradient-to-r from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600"
             >
               View Dashboard
             </Button>
+
+            <ThemeSwitch hideLabel={true}/>
           </div>
         </div>
       </header>

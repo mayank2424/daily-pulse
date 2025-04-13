@@ -1,13 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Award, BarChart3, Calendar, ChevronLeft, Icon, Plus, Settings, Sparkles, TrendingUp } from "lucide-react"
+import { Award, BarChart3, Calendar, ChevronLeft, Icon, Moon, Plus, Settings, Sparkles, Sun, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import Link from "next/link"
 
 import { HabitCard } from "./habit-card"
 import { HabitDetail } from "./habit-detail"
@@ -19,7 +18,9 @@ import { InsightsPanel } from "./insights-panel"
 import { QuoteCard } from "./quote-card"
 import { FeaturedHabit } from "./featured-habit"
 import { WeeklySummary } from "./weekly-summary"
-
+import Link from "next/link"
+import ThemeSwitch from "./theme-switch"
+import toast from "react-hot-toast"
 // Sample data
 const initialHabits = [
   {
@@ -120,7 +121,6 @@ export default function HabitTracker() {
   const [suggestionsOpen, setSuggestionsOpen] = useState(false)
   const [achievementsOpen, setAchievementsOpen] = useState(false)
   const [insightsOpen, setInsightsOpen] = useState(false)
-
   const today = new Date().toISOString().split("T")[0]
 
   const completeHabit = (id: string) => {
@@ -180,14 +180,43 @@ export default function HabitTracker() {
   const completionRate = totalHabits > 0 ? Math.round((completedToday / totalHabits) * 100) : 0
   const longestStreak = habits.reduce((max, habit) => Math.max(max, habit.streak), 0)
 
+  useEffect(() => {
+    // show toast every 10 seconds for reminder
+    const interval = setInterval(() => {
+      if (habits.some(habit => habit.reminderDays.includes(new Date().toLocaleString('en-US', { weekday: 'short' })))) {
+        toast.success('[Sample Reminder]: Don\'t forget to complete your habits today!', {
+          position: 'bottom-right',
+          duration: 2000,
+          style: {
+            background: '#fff8f0',
+            color: '#c2410c',
+            border: '1px solid #fed7aa',
+            borderRadius: '8px',
+            padding: '16px',
+            fontSize: '16px',
+            fontWeight: '500',
+            boxShadow: '0 4px 12px rgba(234, 88, 12, 0.1)',
+          },
+          icon: '📣',
+        })
+      }
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="container mx-auto max-w-6xl px-4 py-8">
-      <Link href="/" className="mb-1 inline-block">
-        <Button variant="link" className="pl-0">
-          <ChevronLeft className="mr-1 h-4 w-4" />
-          Back to Home
-        </Button>
-      </Link>
+      <div className="mb-4 flex flex-row items-center justify-between">
+        <Link href="/" className="mb-1 inline-block">
+          <Button variant="link" className="pl-0">
+            <ChevronLeft className="mr-1 h-4 w-4" />
+            Back to Home
+          </Button>
+        </Link>
+      
+       <ThemeSwitch hideLabel={false}/>
+      </div>
 
       <header className="mb-6 flex items-center justify-between">
         <div>
